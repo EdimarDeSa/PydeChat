@@ -1,8 +1,7 @@
-import json
 from httpx import Client, Response
 
 from .models import LoginData, LogoutContent, UserContent, AdminContent, asdict
-
+from .exceptions import FalhaDeLogin
 
 URL_LOGIN = '/auth/login'
 URL_LOGOUT = '/auth/logout'
@@ -18,6 +17,9 @@ def login(session: Client, login_data: LoginData) -> UserContent:
     data = asdict(login_data)
 
     resp: Response = session.post(URL_LOGIN, data=data)
+    
+    if resp.status_code != 200:
+        raise FalhaDeLogin('Falha ao realizar login')
 
     content = resp.json()
 

@@ -11,6 +11,15 @@ python = "^3.12"
 httpx = "^0.27.0"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
+blue = "^0.9.1"
+isort = "^5.13.2"
+taskipy = "^1.12.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+test = 'pytest test.py -v -x'
